@@ -1,0 +1,145 @@
+// app/products/[id]/page.tsx
+import ProductDetailsClient from './ProductDetailsClient';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+
+const allProducts = [
+  
+    {
+      id: 1,
+      name: "Designer T-Shirt",
+      price: 49,
+      category: "tops",
+      rating: 4.8,
+      reviews: 124,
+      image: "https://readdy.ai/api/search-image?query=Premium%20designer%20t-shirt%20in%20soft%20heather%20gray%20with%20modern%20minimalist%20design%2C%20high-quality%20organic%20cotton%20fabric%20with%20perfect%20fit%2C%20contemporary%20casual%20wear%20with%20subtle%20logo%20detail%2C%20professional%20fashion%20photography%20with%20clean%20white%20background&width=400&height=400&seq=grid-tshirt-refresh&orientation=squarish"
+    },
+    {
+      id: 2,
+      name: "Elegant Dress",
+      price: 129,
+      category: "dresses",
+      rating: 4.9,
+      reviews: 89,
+      image: "https://readdy.ai/api/search-image?query=Sophisticated%20wrap%20dress%20in%20deep%20forest%20green%20with%20flowing%20fabric%20and%20elegant%20drape%2C%20modern%20feminine%20silhouette%20with%20three-quarter%20sleeves%2C%20premium%20quality%20materials%20with%20beautiful%20texture%2C%20studio%20fashion%20photography%20with%20soft%20natural%20lighting&width=400&height=400&seq=grid-dress-refresh&orientation=squarish"
+    },
+    {
+      id: 3,
+      name: "Classic Jeans",
+      price: 89,
+      category: "bottoms",
+      rating: 4.7,
+      reviews: 156,
+      image: "https://readdy.ai/api/search-image?query=Premium%20indigo%20denim%20jeans%20with%20authentic%20vintage%20wash%20and%20perfect%20straight%20leg%20fit%2C%20high-quality%20selvedge%20denim%20with%20classic%20five-pocket%20styling%2C%20timeless%20casual%20wear%20with%20subtle%20fading%20details%2C%20professional%20product%20photography%20with%20clean%20background&width=400&height=400&seq=grid-jeans-refresh&orientation=squarish"
+    },
+    {
+      id: 4,
+      name: "Casual Sneakers",
+      price: 99,
+      category: "shoes",
+      rating: 4.6,
+      reviews: 92,
+      image: "https://readdy.ai/api/search-image?query=Modern%20lifestyle%20sneakers%20in%20crisp%20white%20with%20subtle%20gray%20accents%2C%20premium%20leather%20and%20mesh%20construction%20for%20comfort%20and%20style%2C%20contemporary%20athletic-inspired%20design%20with%20clean%20lines%2C%20professional%20footwear%20photography%20with%20soft%20shadows&width=400&height=400&seq=grid-sneakers-refresh&orientation=squarish"
+    },
+    {
+      id: 5,
+      name: "Leather Jacket",
+      price: 299,
+      category: "outerwear",
+      rating: 4.8,
+      reviews: 73,
+      image: "https://readdy.ai/api/search-image?query=Classic%20leather%20moto%20jacket%20in%20rich%20cognac%20brown%20with%20vintage-inspired%20details%2C%20premium%20full-grain%20leather%20with%20beautiful%20patina%2C%20modern%20tailored%20fit%20with%20asymmetrical%20zipper%2C%20sophisticated%20outerwear%20with%20quality%20craftsmanship%20and%20timeless%20style&width=400&height=400&seq=grid-jacket-refresh&orientation=squarish"
+    },
+    {
+      id: 6,
+      name: "Designer Handbag",
+      price: 199,
+      category: "accessories",
+      rating: 4.5,
+      reviews: 167,
+      image: "https://readdy.ai/api/search-image?query=Luxury%20structured%20handbag%20in%20smooth%20black%20leather%20with%20gold-tone%20hardware%2C%20modern%20minimalist%20design%20with%20clean%20lines%20and%20quality%20craftsmanship%2C%20premium%20fashion%20accessory%20with%20elegant%20proportions%2C%20professional%20product%20photography%20with%20soft%20lighting&width=400&height=400&seq=grid-handbag-refresh&orientation=squarish"
+    },
+    {
+      id: 7,
+      name: "Formal Shirt",
+      price: 79,
+      category: "tops",
+      rating: 4.7,
+      reviews: 45,
+      image: "https://readdy.ai/api/search-image?query=Crisp%20white%20cotton%20dress%20shirt%20with%20perfect%20collar%20and%20cuffs%2C%20premium%20non-iron%20fabric%20with%20modern%20tailored%20fit%2C%20professional%20business%20attire%20with%20subtle%20texture%2C%20clean%20product%20photography%20with%20elegant%20presentation%20and%20quality%20details&width=400&height=400&seq=grid-shirt-refresh&orientation=squarish"
+    },
+    {
+      id: 8,
+      name: "Summer Blouse",
+      price: 69,
+      category: "tops",
+      rating: 4.6,
+      reviews: 98,
+      image: "https://readdy.ai/api/search-image?query=Flowing%20chiffon%20blouse%20in%20soft%20blush%20pink%20with%20delicate%20floral%20print%2C%20lightweight%20summer%20fabric%20with%20elegant%20drape%2C%20feminine%20design%20with%20subtle%20ruffle%20details%2C%20natural%20lighting%20photography%20showcasing%20the%20beautiful%20texture%20and%20movement&width=400&height=400&seq=grid-blouse-refresh&orientation=squarish"
+    },
+    {
+      id: 9,
+      name: "Evening Gown",
+      price: 399,
+      category: "dresses",
+      rating: 4.9,
+      reviews: 134,
+      image: "https://readdy.ai/api/search-image?query=Stunning%20floor-length%20evening%20gown%20in%20midnight%20navy%20with%20subtle%20shimmer%2C%20elegant%20A-line%20silhouette%20with%20sophisticated%20draping%2C%20luxurious%20fabric%20with%20beautiful%20movement%2C%20formal%20occasion%20dress%20with%20timeless%20elegance%20and%20modern%20refinement&width=400&height=400&seq=grid-gown-refresh&orientation=squarish"
+    },
+    {
+      id: 10,
+      name: "Dress Shoes",
+      price: 149,
+      category: "shoes",
+      rating: 4.8,
+      reviews: 67,
+      image: "https://readdy.ai/api/search-image?query=Classic%20oxford%20dress%20shoes%20in%20polished%20black%20leather%20with%20traditional%20broguing%20details%2C%20premium%20quality%20construction%20with%20leather%20sole%2C%20timeless%20formal%20footwear%20with%20elegant%20silhouette%2C%20professional%20product%20photography%20with%20refined%20presentation&width=400&height=400&seq=grid-oxford-refresh&orientation=squarish"
+    },
+    {
+      id: 11,
+      name: "Casual Hoodie",
+      price: 89,
+      category: "outerwear",
+      rating: 4.7,
+      reviews: 201,
+      image: "https://readdy.ai/api/search-image?query=Comfortable%20cotton%20fleece%20hoodie%20in%20warm%20charcoal%20gray%2C%20relaxed%20fit%20with%20modern%20streetwear%20styling%2C%20soft%20brushed%20interior%20for%20warmth%2C%20contemporary%20casual%20wear%20with%20drawstring%20hood%20and%20kangaroo%20pocket%2C%20clean%20product%20photography&width=400&height=400&seq=grid-hoodie-refresh&orientation=squarish"
+    },
+    {
+      id: 12,
+      name: "Silk Scarf",
+      price: 59,
+      category: "accessories",
+      rating: 4.6,
+      reviews: 89,
+      image: "https://readdy.ai/api/search-image?query=Luxurious%20silk%20scarf%20with%20abstract%20geometric%20pattern%20in%20soft%20blue%20and%20cream%20tones%2C%20premium%20quality%20silk%20with%20beautiful%20drape%20and%20sheen%2C%20elegant%20fashion%20accessory%20with%20hand-rolled%20edges%2C%20artistic%20product%20photography%20highlighting%20the%20fabric%20texture&width=400&height=400&seq=grid-scarf-refresh&orientation=squarish"
+    }
+];
+
+export async function generateStaticParams() {
+  return allProducts.map((product) => ({
+    id: product.id.toString(),
+  }));
+}
+
+export default function ProductDetailsPage({ params }: { params: { id: string } }) {
+  const product = allProducts.find((p) => p.id.toString() === params.id);
+
+  if (!product) {
+    return (
+      <div className="p-8 text-center">
+        <h1 className="text-2xl font-bold text-red-500">Product Not Found</h1>
+        <a href="/products" className="text-blue-1600 underline mt-4 block">Back to Products</a>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex-1 bg-gray-50">
+        <ProductDetailsClient product={product} />
+      </main>
+      <Footer />
+    </div>
+  );
+}
