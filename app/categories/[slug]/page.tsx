@@ -1,6 +1,12 @@
 import CategoryPage from './CategoryPage';
 
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+export async function generateStaticParams(): Promise<PageProps['params'][]> {
   return [
     { slug: 'living-room' },
     { slug: 'bedroom' },
@@ -9,6 +15,6 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   ];
 }
 
-export default function CategorySlugPage({ params }: { params: { slug: string } }) {
+export default function CategorySlugPage({ params }: PageProps) {
   return <CategoryPage categorySlug={params.slug} />;
 }
